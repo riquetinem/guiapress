@@ -1,0 +1,3 @@
+# guiapress
+
+CREATE DATABASE guiapress;
