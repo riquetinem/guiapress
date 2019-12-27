@@ -28,7 +28,7 @@ connection
     .then(() => {
         console.log("Conexao feita com sucesso")
     }).catch((error) => {
-        console.log(error)
+    console.log(error)
 });
 
 // import routers for app
@@ -59,16 +59,43 @@ app.get('/:slug', (req, res) => {
             slug: slug
         }
     }).then(article => {
-        if(article != undefined){
-           Category.findAll()
-               .then(categories => {
-                   res.render('article', {
-                       article: article,
-                       categories: categories
-                   })
-               })
+        if (article != undefined) {
+            Category.findAll()
+                .then(categories => {
+                    res.render('article', {
+                        article: article,
+                        categories: categories
+                    })
+                })
         } else {
             res.redirect("/");
+        }
+    }).catch(err => {
+        res.redirect("/")
+    })
+});
+
+app.get("/category/:slug", (req, res) => {
+    let slug = req.params.slug;
+    Category.findOne({
+        where: {
+            slug: slug
+        },
+        // include == JOIN no sql padrao
+        include: [{
+            model: Article
+        }]
+    }).then(category => {
+        if (category != undefined) {
+            Category.findAll()
+                .then(categories => {
+                    res.render('index', {
+                        articles: category.articles,
+                        categories: categories
+                    })
+                })
+        } else {
+            res.redirect("/")
         }
     }).catch(err => {
         res.redirect("/")
