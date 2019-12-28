@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
+const session = require("express-session");
 const connection = require("./database/database");
 
 // Controllers
@@ -15,6 +16,15 @@ const User = require("./user/User");
 
 //View engine
 app.set('view engine', 'ejs');
+
+// Sessions
+app.use(session({
+    secret: "ancap",
+    cookie: {
+        maxAge: 30000000,
+        path: "/"
+    }
+}))
 
 //statice
 app.use(express.static('public'));
