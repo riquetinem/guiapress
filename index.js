@@ -4,6 +4,35 @@ const bodyParser = require("body-parser");
 const session = require("express-session");
 const connection = require("./database/database");
 
+/*
+//nodemailer = enviar email
+const nodemailer = require("nodemailer");
+
+//precisa ver como configura o envio de email pois esta dando erro
+let transporter = nodemailer.createTransport({
+    host: 'smtp.mail.yahoo.com',
+    port: 465,
+    auth: {
+        type: 'login',
+        user: 'paunocudoestado@yahoo.com',
+        password: 'senhateste123'
+    }
+});
+
+// corpo do email e o to é para onde vai ser enviado o email
+transporter.sendMail({
+    from: "Teste <testsendemailaaaaa@gmail.com>",
+    to: "henrique714tinem@gmail.com",
+    subject: "Teste123",
+    text: "testen1231231231",
+    html: "<h1> TESTEEEEE </h1>"
+}).then(message => {
+    console.log(message)
+}).catch(err => {
+    console.log(err)
+});
+*/
+
 // Controllers
 const categoriesController = require("./categories/CategoriesController");
 const articlesController = require("./articles/ArticlesController");
@@ -21,10 +50,9 @@ app.set('view engine', 'ejs');
 app.use(session({
     secret: "ancap",
     cookie: {
-        maxAge: 30000000,
         path: "/"
     }
-}))
+}));
 
 //statice
 app.use(express.static('public'));
@@ -116,6 +144,8 @@ app.get("/category/:slug", (req, res) => {
         res.redirect("/")
     })
 });
+
+
 
 app.listen(8080, () => {
     console.log("O servidor foi iniciado");
