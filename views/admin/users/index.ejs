@@ -20,8 +20,15 @@
                 <th><%= user.id %></th>
                 <th><%= user.email %></th>
                 <th>
-                    Editar
-                    Deletar
+                    <form action="/users/reset" style="display: inline" onsubmit="confirmAction(event, this, 1)" method="post">
+                        <input type="hidden" value="<%= user.email %>" name="email" id="email">
+                        <button type="submit" class="btn btn-dark">Resetar Senha</button>
+                    </form>
+
+                    <form action="/users/delete" style="display: inline" onsubmit="confirmAction(event, this)" method="post">
+                        <input type="hidden" value="<%= user.id %>" name="id" id="id">
+                        <button type="submit" class="btn btn-danger">Deletar</button>
+                    </form>
                 </th>
             </tr>
         <% }) %>
@@ -30,5 +37,19 @@
         </tbody>
     </table>
 </div>
-
 <%- include('../../partials/footer.ejs') %>
+
+<script>
+    function confirmAction(event, form, opt) {
+        let msg = '';
+        event.preventDefault();
+        if (opt == 1)
+            msg = "Você tem certeza que quer resetar a senha deste usuário?";
+        else
+            msg = "Você tem certeza que deseja deletar este usuário?";
+        let decision = confirm(msg)
+
+        if(decision)
+            form.submit()
+    }
+</script>

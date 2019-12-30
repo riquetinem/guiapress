@@ -4,34 +4,6 @@ const bodyParser = require("body-parser");
 const session = require("express-session");
 const connection = require("./database/database");
 
-//nodemailer = enviar email
-const nodemailer = require("nodemailer");
-
-//precisa ver como configura o envio de email pois esta dando erro
-let transporter = nodemailer.createTransport({
-    service: "Gmail",
-    auth: {
-        user: "testsendemailaaaaa@gmail.com",
-        pass: "senhateste123"
-    },
-    tls: {
-        rejectUnauthorized: false
-    }
-});
-
-// corpo do email e o to é para onde vai ser enviado o email
-transporter.sendMail({
-    from: "Teste <testsendemailaaaaa@gmail.com>",
-    to: "henrique714tinem@gmail.com",
-    subject: "Teste123",
-    text: "testen1231231231",
-    html: "<h1> TESTEEEEE </h1>"
-}).then(message => {
-    console.log(message)
-}).catch(err => {
-    console.log(err)
-});
-
 // Controllers
 const categoriesController = require("./categories/CategoriesController");
 const articlesController = require("./articles/ArticlesController");
