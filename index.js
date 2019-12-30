@@ -4,18 +4,18 @@ const bodyParser = require("body-parser");
 const session = require("express-session");
 const connection = require("./database/database");
 
-/*
 //nodemailer = enviar email
 const nodemailer = require("nodemailer");
 
 //precisa ver como configura o envio de email pois esta dando erro
 let transporter = nodemailer.createTransport({
-    host: 'smtp.mail.yahoo.com',
-    port: 465,
+    service: "Gmail",
     auth: {
-        type: 'login',
-        user: 'paunocudoestado@yahoo.com',
-        password: 'senhateste123'
+        user: "testsendemailaaaaa@gmail.com",
+        pass: "senhateste123"
+    },
+    tls: {
+        rejectUnauthorized: false
     }
 });
 
@@ -31,7 +31,6 @@ transporter.sendMail({
 }).catch(err => {
     console.log(err)
 });
-*/
 
 // Controllers
 const categoriesController = require("./categories/CategoriesController");
@@ -144,7 +143,6 @@ app.get("/category/:slug", (req, res) => {
         res.redirect("/")
     })
 });
-
 
 
 app.listen(8080, () => {
